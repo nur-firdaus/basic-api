@@ -12,32 +12,45 @@
 
 <?php
 
-$response = file_get_contents('https://api.wheretheiss.at/v1/satellites');
-
-echo $response;
 
 $response = file_get_contents('https://randomuser.me/api/');
-
-echo $response;
 
 ?>
 
 <div class="jumbotron text-center">
-  <h1>My First Bootstrap Page</h1>
-  <p>Resize this responsive page to see the effect!</p> 
+  <h1>Simple Get API Response</h1>
 </div>
   
 <div class="container">
   <div class="row">
     <div class="col-sm-4">
-      <h3>Column 1</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+      <h3>Where The Sallites</h3>
+      <p>Received Data </br>
+        <?php
+            $issApi = json_decode(file_get_contents('https://api.wheretheiss.at/v1/satellites'),true);
+            foreach($issApi as $product){
+                foreach($product as $key => $val){
+                    echo "$key : $val <br/>";
+                }
+            }
+        ?>
+      </p>
     </div>
     <div class="col-sm-4">
-      <h3>Column 2</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+    <h3>User Info</h3>
+      <p>Received Data </br>
+        <?php
+            $result = json_decode(file_get_contents('https://randomuser.me/api/'),true);
+            
+            foreach($result['info'] as $key => $val){
+                echo "$key : $val <br/>";
+            }
+        ?>
+        <hr/>
+        <?php
+            echo json_encode($result['results'], JSON_PRETTY_PRINT);
+        ?>
+      </p>
     </div>
     <div class="col-sm-4">
       <h3>Column 3</h3>        
